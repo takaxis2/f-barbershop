@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {Link as muiLink} from '@mui/material/Link';
+import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -12,10 +12,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import Link from "next/link";
+import NextLink from "next/link";
 
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
+
+
 
 function Copyright(props) {
     return (
@@ -102,19 +104,19 @@ function Copyright(props) {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/signUp">
-                    <muiLink href="/signUp" variant="body2">
+                  <NextLink href="/signUp" passHref>
+                    <Link  variant="body2">
                       {"Don't have an account? Sign Up"}
-                    </muiLink>
-                  </Link>
+                    </Link>
+                  </NextLink>
                 </Grid>
               </Grid>
               <Grid>
                 <GoogleLogin
-                  clientId='asdasd'
+                  clientId={process.env.GOOGLE_OAUTH_CLIENT_ID  }
                   buttonText='Google'
-                  onSuccess={result=>console.log(result)}
-                  onFailure={result=>console.log(result)}
+                  onSuccess={result=>console.log(process.env.GOOGLE_OAUTH_CLIENT_ID)}
+                  onFailure={result=>console.log(result)} 
                 />
 
                 <KakaoLogin
@@ -122,10 +124,12 @@ function Copyright(props) {
                   onSuccess={()=>{console.log("success")}}
                   onFail={(err)=>{console.log(err)}}
                 >KaKao</KakaoLogin>
+
               </Grid>
 
             </Box>
           </Box>
+                
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
