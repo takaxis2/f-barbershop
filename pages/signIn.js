@@ -14,6 +14,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import NextLink from "next/link";
 
+import {signIn} from "next-auth/react";
+
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 
@@ -30,6 +32,11 @@ function Copyright(props) {
         {'.'}
       </Typography>
     );
+  }
+
+  async function signAndLog(){
+    const result = await signIn();
+    console.log(result)
   }
   
   const theme = createTheme();
@@ -112,19 +119,15 @@ function Copyright(props) {
                 </Grid>
               </Grid>
               <Grid>
-                <GoogleLogin
-                  clientId={process.env.GOOGLE_OAUTH_CLIENT_ID  }
-                  buttonText='Google'
-                  onSuccess={result=>console.log(process.env.GOOGLE_OAUTH_CLIENT_ID)}
-                  onFailure={result=>console.log(result)} 
-                />
+                
+                <NextLink href='/api/auth/google'>
+                  <img src='\signin-assets\google_signin_buttons\web\1x\btn_google_signin_dark_normal_web.png'/>
+                </NextLink>
 
-                <KakaoLogin
-                  token='asdasdasd'
-                  onSuccess={()=>{console.log("success")}}
-                  onFail={(err)=>{console.log(err)}}
-                >KaKao</KakaoLogin>
-
+                <NextLink href='/api/auth/kakao'>
+                  <img src='\kakao_login\en\kakao_login_medium_narrow.png'/>
+                </NextLink>
+                
               </Grid>
 
             </Box>
